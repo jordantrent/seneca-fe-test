@@ -41,11 +41,6 @@
     flex-grow: 1;
 }
 
-.slider-option.selected {
-
-}
-
-
 @media screen and (max-width: 768px) {
     .slider-container {
         width: 100%;
