@@ -1,5 +1,31 @@
 .question-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 20px;
+    align-items: center;
+    transition: background-color 0.3s ease;
+
+}
+
+.closeness-0 {
+    background: linear-gradient(to bottom, #ff0000, #ffffff); /* Red to White */
+}
+
+.closeness-1 {
+    background: linear-gradient(to bottom, #ff7300, #ffffff); /* Orange to White */
+}
+
+.closeness-2 {
+    background: linear-gradient(to bottom, #cf9f00, #ffffff); /* Yellow to White */
+}
+
+.closeness-3 {
+    background: linear-gradient(to bottom, #33bfcc, #ffffff); /* Green to White */
 }

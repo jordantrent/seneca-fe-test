@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import Slider from './Slider';
 import './Question.css';
 
@@ -11,14 +11,27 @@ interface QuestionProps {
 const Question: React.FC<QuestionProps> = ({ title, optionsPerSlider, correctAnswers }) => {
     const [selectedAnswers, setSelectedAnswers] = useState<string[]>(Array(optionsPerSlider.length).fill(''));
 
+    const calculateCloseness = () => {
+        return selectedAnswers.filter((answer, index) => answer === correctAnswers[index]).length;
+    };
+
     const handleAnswerChange = (index: number, answer: string) => {
-        setSelectedAnswers((prev) => prev.map((val, i) => (i === index ? answer : val)));
+        setSelectedAnswers((prev) => {
+            const updatedAnswers = [...prev];
+            updatedAnswers[index] = answer;
+            return updatedAnswers;
+        });
+    };
+
+    const getClosenessClass = () => {
+        const closeness = calculateCloseness();
+        return `closeness-${closeness}`;
     };
 
     const isCorrect = selectedAnswers.every((answer, index) => answer === correctAnswers[index]);
 
     return (
-        <div className="question-container">
+        <div className={`question-container ${getClosenessClass()}`}>
             <h2>{title}</h2>
             {optionsPerSlider.map((options, index) => (
                 <Slider
@@ -32,6 +45,10 @@ const Question: React.FC<QuestionProps> = ({ title, optionsPerSlider, correctAns
             <h3 style={{ color: isCorrect ? 'green' : 'red' }}>
                 {isCorrect ? 'Correct!' : 'Try Again'}
             </h3>
+
+            <div>
+                Closeness: {calculateCloseness()} / {optionsPerSlider.length}
+            </div>
         </div>
     );
 };
