@@ -5,13 +5,15 @@ function App() {
   return (
     <>
         <Question
-            title="Choose the correct answers"
+            title="An animal cell contains:"
             optionsPerSlider={[
-                ['Low', 'Medium', 'High'],
-                ['Rarely', 'Manchester', 'Often'],
-                ['Yes', 'No']
+                ['Cell wall', 'Ribosomes'],
+                ['Cytoplasm', 'Chloroplast'],
+                ['Partially permeable membrane', 'Impermeable membrane'],
+                ['Cellulose', 'Mitochondria'],
             ]}
-            correctAnswers={['High', 'Often', 'Yes']}
+            // Answers must be input in the same order as the options above!
+            correctAnswers={['Ribosomes', 'Cytoplasm', 'Partially permeable membrane', 'Mitochondria']}
         />
     </>
   )

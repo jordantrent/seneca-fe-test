@@ -39,11 +39,12 @@ const Question: React.FC<QuestionProps> = ({ title, optionsPerSlider, correctAns
                     options={options}
                     selected={selectedAnswers[index]}
                     onChange={(answer) => handleAnswerChange(index, answer)}
+                    disabled={isCorrect}
                 />
             ))}
 
-            <h3 style={{ color: isCorrect ? 'green' : 'red' }}>
-                {isCorrect ? 'Correct!' : 'Try Again'}
+            <h3 style={{ color: 'white' }}>
+                {isCorrect ? 'Correct!' : 'The answer is incorrect'}
             </h3>
 
             <div>
