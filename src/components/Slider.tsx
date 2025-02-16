@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './Slider.css';
 
 interface SliderProps {
@@ -8,7 +8,7 @@ interface SliderProps {
     disabled: boolean;
 }
 
-const Slider: React.FC<SliderProps> = ({ options, selected, onChange, disabled }) => {
+const Slider = ({ options, selected, onChange, disabled }: SliderProps) => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 480);
 
     useEffect(() => {
@@ -43,10 +43,7 @@ const Slider: React.FC<SliderProps> = ({ options, selected, onChange, disabled }
                     </button>
                 ))}
             </div>
-            <div
-                className="slider-thumb"
-                style={thumbStyle}
-            />
+            <div className="slider-thumb" style={thumbStyle} />
         </div>
     );
 };
