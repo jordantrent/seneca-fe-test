@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Slider from './Slider';
 import './Question.css';
 
@@ -8,7 +8,7 @@ interface QuestionProps {
     correctAnswers: string[];
 }
 
-const Question: React.FC<QuestionProps> = ({ title, optionsPerSlider, correctAnswers }) => {
+const Question = ({ title, optionsPerSlider, correctAnswers }: QuestionProps) => {
     const [selectedAnswers, setSelectedAnswers] = useState<string[]>(Array(optionsPerSlider.length).fill(''));
 
     const calculateCloseness = () => {
@@ -24,7 +24,7 @@ const Question: React.FC<QuestionProps> = ({ title, optionsPerSlider, correctAns
     };
 
     const closeness = calculateCloseness();
-    const isCorrect = closeness === correctAnswers.length; // Check if all answers are correct
+    const isCorrect = closeness === correctAnswers.length;
 
     return (
         <div className={`question-container closeness-${closeness} ${isCorrect ? 'correct' : 'incorrect'}`}>
@@ -42,7 +42,6 @@ const Question: React.FC<QuestionProps> = ({ title, optionsPerSlider, correctAns
             <h3 style={{ color: 'white' }}>
                 {isCorrect ? 'Correct!' : 'The answer is incorrect'}
             </h3>
-
         </div>
     );
 };
