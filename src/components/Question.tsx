@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Slider from './Slider';
 import './Question.css';
 
@@ -23,15 +23,11 @@ const Question: React.FC<QuestionProps> = ({ title, optionsPerSlider, correctAns
         });
     };
 
-    const getClosenessClass = () => {
-        const closeness = calculateCloseness();
-        return `closeness-${closeness}`;
-    };
-
-    const isCorrect = selectedAnswers.every((answer, index) => answer === correctAnswers[index]);
+    const closeness = calculateCloseness();
+    const isCorrect = closeness === correctAnswers.length; // Check if all answers are correct
 
     return (
-        <div className={`question-container ${getClosenessClass()}`}>
+        <div className={`question-container closeness-${closeness} ${isCorrect ? 'correct' : 'incorrect'}`}>
             <h2>{title}</h2>
             {optionsPerSlider.map((options, index) => (
                 <Slider
@@ -47,9 +43,6 @@ const Question: React.FC<QuestionProps> = ({ title, optionsPerSlider, correctAns
                 {isCorrect ? 'Correct!' : 'The answer is incorrect'}
             </h3>
 
-            <div>
-                Closeness: {calculateCloseness()} / {optionsPerSlider.length}
-            </div>
         </div>
     );
 };
