@@ -24,7 +24,7 @@ const Question: React.FC<QuestionProps> = ({ title, optionsPerSlider, correctAns
     };
 
     const closeness = calculateCloseness();
-    const isCorrect = closeness === correctAnswers.length; // Check if all answers are correct
+    const isCorrect = closeness === correctAnswers.length; 
 
     return (
         <div className={`question-container closeness-${closeness} ${isCorrect ? 'correct' : 'incorrect'}`}>
