@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Slider from './Slider';
 import './Question.css';
 
@@ -6,40 +5,36 @@ interface QuestionProps {
     title: string;
     optionsPerSlider: string[][];
     correctAnswers: string[];
+    selectedAnswers: string[];
+    onAnswerChange: (index: number, answer: string) => void;
 }
 
-const Question = ({ title, optionsPerSlider, correctAnswers }: QuestionProps) => {
-    const [selectedAnswers, setSelectedAnswers] = useState<string[]>(Array(optionsPerSlider.length).fill(''));
-
+const Question = ({ title, optionsPerSlider, correctAnswers, selectedAnswers, onAnswerChange }: QuestionProps) => {
     const calculateCloseness = () => {
         return selectedAnswers.filter((answer, index) => answer === correctAnswers[index]).length;
-    };
-
-    const handleAnswerChange = (index: number, answer: string) => {
-        setSelectedAnswers((prev) => {
-            const updatedAnswers = [...prev];
-            updatedAnswers[index] = answer;
-            return updatedAnswers;
-        });
     };
 
     const closeness = calculateCloseness();
     const isCorrect = closeness === correctAnswers.length;
 
+    const containerClassName = isCorrect
+        ? 'question-container correct'
+        : `question-container closeness-${closeness}`;
+
     return (
-        <div className={`question-container closeness-${closeness} ${isCorrect ? 'correct' : 'incorrect'}`}>
-            <h2>{title}</h2>
+        <div className={containerClassName}>
+            <h2 className="question-title">{title}</h2>
             {optionsPerSlider.map((options, index) => (
                 <Slider
                     key={index}
                     options={options}
                     selected={selectedAnswers[index]}
-                    onChange={(answer) => handleAnswerChange(index, answer)}
+                    onChange={(answer) => onAnswerChange(index, answer)}
                     disabled={isCorrect}
                 />
             ))}
 
-            <h3 style={{ color: 'white' }}>
+            <h3 className="question-result">
                 {isCorrect ? 'Correct!' : 'The answer is incorrect'}
             </h3>
         </div>

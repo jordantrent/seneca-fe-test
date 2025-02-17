@@ -11,17 +11,25 @@
     gap: 20px;
     align-items: center;
     transition: background-color 0.3s ease;
-    margin: 0 auto;
     overflow-y: auto;
-
 }
 
-@media screen and (max-width: 480px) {
+.question-title {
+    color: white;
+    padding: 0 20px;
+}
+
+.question-result {
+    color: white;
+    padding-bottom: 20px;
+}
+
+
+@media screen and (max-width: 900px) {
     .question-container {
         justify-content: flex-start;
     }
 }
-
 
 .closeness-0 {
     background: linear-gradient(to bottom, #F6B868, #b53700);
@@ -39,7 +47,7 @@
     background: linear-gradient(to bottom, #eacf7c, #e8a726);
 }
 
-.closeness-4 {
+.correct {
     background: linear-gradient(to bottom, #76E0C2, #59CADA);
 }
 
