@@ -3,6 +3,7 @@
     margin: 0 auto;
     padding: 2rem;
     text-align: center;
+
 }
 
 .logo {
@@ -26,9 +27,8 @@ div.nav-container {
     left: 50%;
     transform: translateX(-50%);
     margin-top: 0;
-    padding: 10px;
+    width: 100%;
 }
-
 
 button.nav-button{
     background: none;

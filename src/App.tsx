@@ -61,14 +61,14 @@ function App() {
                     onClick={() => setCurrentQuestionIndex(currentQuestionIndex - 1)}
                     disabled={currentQuestionIndex === 0}
                 >
-                    Prev
+                    &lt;
                 </button>
 
                 <button className="nav-button"
                     onClick={() => setCurrentQuestionIndex(currentQuestionIndex + 1)}
                     disabled={currentQuestionIndex === questions.length - 1}
                 >
-                    Next
+                    &gt;
                 </button>
             </div>
         </div>
