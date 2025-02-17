@@ -24,8 +24,13 @@
     padding-bottom: 20px;
 }
 
+@media screen and (max-width: 480px) {
+    .question-container {
+        justify-content: flex-start;
+    }
+}
 
-@media screen and (max-width: 900px) {
+@media (max-width: 1080px) and (orientation: landscape) {
     .question-container {
         justify-content: flex-start;
     }
