@@ -1,25 +1,39 @@
 import './App.css';
 import Question from "./components/Question.tsx";
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import { questions } from "./data/questions";
 
 function App() {
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [selectedAnswers, setSelectedAnswers] = useState<string[][]>(
-        questions.map(q => Array(q.optionsPerSlider.length).fill(''))
+    const questionIds = Object.keys(questions);
+
+    const [currentQuestionId, setCurrentQuestionId] = useState(questionIds[0]);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 480);
+    const [selectedAnswers, setSelectedAnswers] = useState<Record<string, string[]>>(
+        Object.fromEntries(
+            Object.entries(questions).map(([id, q]) => [id, Array(q.optionsPerSlider.length).fill('')])
+        )
     );
 
-    const handleAnswerChange = (sliderIndex: number, answer: string) => {
-        setSelectedAnswers(prev =>
-            prev.map((answers, qIndex) =>
-                qIndex === currentQuestionIndex
-                    ? answers.map((a, sIndex) => (sIndex === sliderIndex ? answer : a))
-                    : answers
-            )
-        );
-    };
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth < 480);
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
-    const currentQuestion = questions[currentQuestionIndex];
+    const handleAnswerChange = (questionId: string, sliderIndex: number, answer: string) => {
+        setSelectedAnswers(prev => {
+            const updatedAnswers = [...prev[questionId]];
+            updatedAnswers[sliderIndex] = answer;
+
+            return {
+                ...prev,
+                [questionId]: updatedAnswers
+            };
+        });
+    };
+    const currentQuestion = questions[currentQuestionId];
+
+    const currentIndex = questionIds.indexOf(currentQuestionId);
 
     return (
         <div>
@@ -27,23 +41,25 @@ function App() {
                 title={currentQuestion.title}
                 optionsPerSlider={currentQuestion.optionsPerSlider}
                 correctAnswers={currentQuestion.correctAnswers}
-                selectedAnswers={selectedAnswers[currentQuestionIndex]}
+                selectedAnswers={selectedAnswers[currentQuestionId]}
                 onAnswerChange={handleAnswerChange}
+                isMobile={isMobile}
+                id={currentQuestionId}
             />
 
             <div className="nav-container">
                 <button
                     className="nav-button"
-                    onClick={() => setCurrentQuestionIndex(i => i - 1)}
-                    disabled={currentQuestionIndex === 0}
+                    onClick={() => setCurrentQuestionId(questionIds[currentIndex - 1])}
+                    disabled={currentIndex === 0}
                 >
                     &lt;
                 </button>
 
                 <button
                     className="nav-button"
-                    onClick={() => setCurrentQuestionIndex(i => i + 1)}
-                    disabled={currentQuestionIndex === questions.length - 1}
+                    onClick={() => setCurrentQuestionId(questionIds[currentIndex + 1])}
+                    disabled={currentIndex === questionIds.length - 1}
                 >
                     &gt;
                 </button>

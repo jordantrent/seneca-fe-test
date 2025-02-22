@@ -2,14 +2,17 @@ import Slider from './Slider';
 import './Question.css';
 
 interface QuestionProps {
+    id: string;
     title: string;
     optionsPerSlider: string[][];
     correctAnswers: string[];
     selectedAnswers: string[];
-    onAnswerChange: (index: number, answer: string) => void;
+    onAnswerChange: (id: string, index: number, answer: string) => void;
+    isMobile: boolean;
 }
 
-const Question = ({ title, optionsPerSlider, correctAnswers, selectedAnswers, onAnswerChange }: QuestionProps) => {
+const Question = ({ title, optionsPerSlider, correctAnswers, selectedAnswers, onAnswerChange, isMobile, id}: QuestionProps) => {
+
     const calculateCloseness = () => {
         return selectedAnswers.filter((answer, index) => answer === correctAnswers[index]).length;
     };
@@ -26,10 +29,11 @@ const Question = ({ title, optionsPerSlider, correctAnswers, selectedAnswers, on
             <h2 className="question-title">{title}</h2>
             {optionsPerSlider.map((options, index) => (
                 <Slider
+                    isMobile={isMobile}
                     key={index}
                     options={options}
                     selected={selectedAnswers[index]}
-                    onChange={(answer) => onAnswerChange(index, answer)}
+                    onChange={(answer) => onAnswerChange(id, index, answer)}
                     disabled={isCorrect}
                 />
             ))}
